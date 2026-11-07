@@ -6,6 +6,10 @@
       "default-features": false
     },
     "gtest",
+    {
+      "name": "simde",
+      "platform": "arm64"
+    },
     "zstd"
   ]
 }

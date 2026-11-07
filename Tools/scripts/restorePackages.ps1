@@ -1,6 +1,8 @@
 param(
     [string]$Source = $env:GACL_NUGET_SOURCE,
-    [switch]$TestBuild
+    [switch]$TestBuild,
+    [ValidateSet('x64', 'ARM64')] [string]$Platform = 'x64',
+    [ValidateSet('Debug', 'Fuzzing', 'Release')] [string]$Configuration = 'Release'
 )
 
 $ErrorActionPreference = "Stop"
@@ -34,7 +36,7 @@ else
 
 $repositoryRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $solution = Join-Path $repositoryRoot "gacl.sln"
-$buildOptions = @()
+$buildOptions = @("/p:Platform=$Platform", "/p:Configuration=$Configuration")
 if ($TestBuild)
 {
     $solution = Join-Path $repositoryRoot "gacl-tests.slnf"
